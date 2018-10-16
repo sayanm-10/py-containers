@@ -38,6 +38,16 @@ def anagram_counter(str1, str2):
 
     return Counter(str1) == Counter(str2)
 
+def covers_alphabet(sentence):
+    ''' returns True if sentence includes at least one instance of every 
+        character in the alphabet or False using only Python sets '''
+
+    for letter in set('abcdefghijklmnopqrstuvwxyz'):
+        if letter not in set(sentence.lower()):
+            return False
+
+    return True
+
 
 class AllTest(unittest.TestCase):
     ''' Test cases for all functions '''
@@ -65,6 +75,18 @@ class AllTest(unittest.TestCase):
         self.assertTrue(anagram_counter('racecar', 'carrace'))
         self.assertTrue(anagram_counter('', ''))
         self.assertFalse(anagram_counter('class', 'blast'))
+
+    def test_covers_alphabet(self):
+        ''' test covers_alphabet '''
+
+        self.assertTrue(covers_alphabet('abcdefghijklmnopqrstuvwxyz'))
+        self.assertTrue(covers_alphabet('aabbcdefghijklmnopqrstuvwxyzzabc'.upper()))
+        self.assertTrue(covers_alphabet("The quick, brown, fox; jumps over the lazy dog!"))
+        self.assertTrue(covers_alphabet('We promptly judged antique ivory buckles for the next prize'))
+        self.assertFalse(covers_alphabet(''))
+        self.assertFalse(covers_alphabet('abc'))
+        self.assertFalse(covers_alphabet('We promptly judged antique ivory buckles for the next...'))
+
 
 if __name__ == "__main__":
     ''' This is executed when run from the command line '''
