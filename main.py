@@ -48,6 +48,18 @@ def covers_alphabet(sentence):
 
     return True
 
+def book_index(words):
+    ''' takes a list of tuples (word, index) and returns a sorted list
+        of each word and all its occurrences '''
+
+    dd = defaultdict(list)
+
+    # sort the index of words so that the indices are inserted in ascending order
+    for item in sorted(words, key= lambda k: k[1]):
+        dd[item[0]].append(item[1])
+
+    # sort default dict (by keys)
+    return [[item[0], item[1]] for item in sorted(dd.items())]
 
 class AllTest(unittest.TestCase):
     ''' Test cases for all functions '''
@@ -86,6 +98,24 @@ class AllTest(unittest.TestCase):
         self.assertFalse(covers_alphabet(''))
         self.assertFalse(covers_alphabet('abc'))
         self.assertFalse(covers_alphabet('We promptly judged antique ivory buckles for the next...'))
+
+    def test_book_index(self):
+        ''' test book_index '''
+
+        woodchucks = [('how', 3), ('much', 3), ('wood', 3), ('would', 2), ('a', 1), \
+                ('woodchuck', 1), ('chuck', 3), ('if', 1), ('a', 1), ('woodchuck', 2), \
+                ('could', 2), ('chuck', 1), ('wood', 1)]
+        
+        expected_result = [['a', [1, 1]], ['chuck', [1, 3]], ['could', [2]], \
+                    ['how', [3]], ['if', [1]], ['much', [3]], \
+                    ['wood', [1, 3]], ['woodchuck', [1, 2]], ['would', [2]]]
+
+        unexpected_result = [['a', [1, 1]], ['woodchuck', [1, 2]], ['if', [1]], \
+                            ['chuck', [1, 3]], ['wood', [1, 3]], ['would', [2]], \
+                            ['could', [2]], ['how', [3]], ['much', [3]]]
+
+        self.assertTrue(book_index(woodchucks) == expected_result)
+        self.assertFalse(book_index(woodchucks) == unexpected_result)
 
 
 if __name__ == "__main__":
