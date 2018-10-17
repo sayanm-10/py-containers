@@ -42,11 +42,13 @@ def covers_alphabet(sentence):
     ''' returns True if sentence includes at least one instance of every 
         character in the alphabet or False using only Python sets '''
 
-    for letter in set('abcdefghijklmnopqrstuvwxyz'):
-        if letter not in set(sentence.lower()):
-            return False
+    # for letter in set('abcdefghijklmnopqrstuvwxyz'):
+    #     if letter not in set(sentence.lower()):
+    #         return False
 
-    return True
+    # return True
+
+    return set(sentence) >= set(alphabet)
 
 def book_index(words):
     ''' takes a list of tuples (word, index) and returns a sorted list
