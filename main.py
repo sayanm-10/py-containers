@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 __author__ = "Sayan Mukherjee"
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __license__ = "MIT"
 
 import unittest
@@ -11,7 +11,7 @@ from collections import defaultdict, Counter
 def anagram(str1, str2):
     ''' returns True if str1 and str2 are anagrams using only lists '''
 
-    return sorted(list(str1)) == sorted(list(str2))
+    return sorted(str1) == sorted(str2)
 
 def anagram_dd(str1, str2):
     ''' returns True if str1 and str2 are anagrams using default dict '''
@@ -56,7 +56,8 @@ def book_index(words):
 
     # sort the index of words so that the indices are inserted in ascending order
     for item in sorted(words, key= lambda k: k[1]):
-        dd[item[0]].append(item[1])
+        if item[1] not in dd[item[0]]:
+            dd[item[0]].append(item[1])
 
     # sort default dict (by keys)
     return [[item[0], item[1]] for item in sorted(dd.items())]
@@ -106,7 +107,7 @@ class AllTest(unittest.TestCase):
                 ('woodchuck', 1), ('chuck', 3), ('if', 1), ('a', 1), ('woodchuck', 2), \
                 ('could', 2), ('chuck', 1), ('wood', 1)]
         
-        expected_result = [['a', [1, 1]], ['chuck', [1, 3]], ['could', [2]], \
+        expected_result = [['a', [1]], ['chuck', [1, 3]], ['could', [2]], \
                     ['how', [3]], ['if', [1]], ['much', [3]], \
                     ['wood', [1, 3]], ['woodchuck', [1, 2]], ['would', [2]]]
 
